@@ -1,20 +1,12 @@
 {
   "version": 2,
   "name": "horror-game-hackathon",
-  "builds": [
-    {
-      "src": "monkeyspaw.html",
-      "use": "@vercel/static"
-    }
-  ],
+  "buildCommand": "echo 'No build needed'",
+  "outputDirectory": ".",
   "routes": [
     {
       "src": "/",
       "dest": "/monkeyspaw.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
     }
   ]
 }
