@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Monkey's Paw - Interactive Horror</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="minigames.js"></script>
+</head>
+<body>
+    <div class="game-container">
+        <div class="background-overlay"></div>
+        
+        <div class="content-wrapper">
+            <h1 class="game-title">The Monkey's Paw</h1>
+            
+            <div class="scene-container" id="scene-container">
+                <div class="story-text" id="story-text"></div>
+                <div class="choices-container" id="choices-container"></div>
+            </div>
+            
+            <!-- Mini-game toggle -->
+            <div class="mini-game-toggle">
+                <label for="mini-game-switch">
+                    <input type="checkbox" id="mini-game-switch" checked>
+                    <span>Mini-Games On</span>
+                </label>
+            </div>
+            
+            <div class="game-state" id="game-state">
+                <span class="wishes-remaining" id="wishes-remaining"></span>
+                <span class="fate-meter" id="fate-meter"></span>
+            </div>
+            
+            <!-- Life Bar -->
+            <div class="life-bar" id="life-bar">
+                <span class="life-label">Lives:</span>
+                <div class="life-hearts" id="life-hearts">
+                    <span class="heart">❤️</span>
+                    <span class="heart">❤️</span>
+                    <span class="heart">❤️</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ambient-effects">
+            <div class="fog"></div>
+            <div class="vignette"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

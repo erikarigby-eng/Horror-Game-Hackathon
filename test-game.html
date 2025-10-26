@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monkey's Paw - Test Version</title>
+    <style>
+        body {
+            background: #1a0f0f;
+            color: #F4F0DB;
+            font-family: Georgia, serif;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #8b0000;
+            text-align: center;
+        }
+        
+        .story {
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            min-height: 100px;
+            color: #F4F0DB;
+        }
+        
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        button {
+            background: rgba(139, 0, 0, 0.3);
+            border: 1px solid #8b0000;
+            color: #F4F0DB;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: left;
+        }
+        
+        button:hover {
+            background: rgba(139, 0, 0, 0.5);
+        }
+        
+        .debug {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            padding: 10px;
+            font-size: 12px;
+            max-width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>The Monkey's Paw - Test</h1>
+        <div id="story" class="story">Loading...</div>
+        <div id="choices" class="choices"></div>
+    </div>
+    
+    <div class="debug">
+        <div>Scene: <span id="debug-scene">-</span></div>
+        <div>Clicks: <span id="debug-clicks">0</span></div>
+    </div>
+
+    <script>
+        // Super simple test version
+        let clickCount = 0;
+        let currentScene = 'start';
+        
+        const scenes = {
+            start: {
+                text: "You see the monkey's paw on the table.",
+                choices: [
+                    { text: "Pick it up", next: "pickup" },
+                    { text: "Leave it", next: "leave" },
+                    { text: "Burn it", next: "burn" }
+                ]
+            },
+            pickup: {
+                text: "The paw feels heavy in your hand.",
+                choices: [
+                    { text: "Make a wish", next: "wish" },
+                    { text: "Put it down", next: "start" }
+                ]
+            },
+            leave: {
+                text: "You walk away, but something follows.",
+                choices: [
+                    { text: "Look back", next: "start" },
+                    { text: "Keep walking", next: "end" }
+                ]
+            },
+            burn: {
+                text: "The paw writhes in the flames.",
+                choices: [
+                    { text: "Watch it burn", next: "end" },
+                    { text: "Save it", next: "pickup" }
+                ]
+            },
+            wish: {
+                text: "What do you wish for?",
+                choices: [
+                    { text: "Money", next: "money" },
+                    { text: "Love", next: "love" },
+                    { text: "Power", next: "power" }
+                ]
+            },
+            money: {
+                text: "Two hundred pounds arrive with terrible news.",
+                choices: [
+                    { text: "Accept fate", next: "end" },
+                    { text: "Make another wish", next: "wish" }
+                ]
+            },
+            love: {
+                text: "Someone knocks at the door.",
+                choices: [
+                    { text: "Open it", next: "end" },
+                    { text: "Hide", next: "end" }
+                ]
+            },
+            power: {
+                text: "You feel the cost immediately.",
+                choices: [
+                    { text: "Accept", next: "end" },
+                    { text: "Resist", next: "end" }
+                ]
+            },
+            end: {
+                text: "The story ends here... for now.",
+                choices: [
+                    { text: "Start over", next: "start" }
+                ]
+            }
+        };
+        
+        function showScene(sceneId) {
+            console.log('Showing scene:', sceneId);
+            currentScene = sceneId;
+            
+            const scene = scenes[sceneId];
+            if (!scene) {
+                console.error('Scene not found:', sceneId);
+                return;
+            }
+            
+            // Update story text
+            document.getElementById('story').textContent = scene.text;
+            
+            // Update choices
+            const choicesDiv = document.getElementById('choices');
+            choicesDiv.innerHTML = '';
+            
+            scene.choices.forEach((choice, index) => {
+                const button = document.createElement('button');
+                button.textContent = `${index + 1}. ${choice.text}`;
+                button.onclick = function() {
+                    clickCount++;
+                    document.getElementById('debug-clicks').textContent = clickCount;
+                    console.log('Button clicked:', choice.text, '-> next:', choice.next);
+                    showScene(choice.next);
+                };
+                choicesDiv.appendChild(button);
+            });
+            
+            // Update debug info
+            document.getElementById('debug-scene').textContent = sceneId;
+        }
+        
+        // Start the game
+        console.log('Starting game...');
+        showScene('start');
+        
+        // Test that JavaScript is working
+        console.log('Test game loaded successfully');
+    </script>
+</body>
+</html>
