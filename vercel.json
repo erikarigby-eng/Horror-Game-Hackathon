@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "name": "horror-game-hackathon",
+  "builds": [
+    {
+      "src": "monkeyspaw.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/monkeyspaw.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}
+
